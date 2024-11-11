@@ -26,3 +26,14 @@ model Book {
 
   @@map("books")
 }
+
+// create member model
+model Member {
+  memberId       String   @id @default(uuid())
+  name           String
+  email          String
+  phone          String
+  memberShipDate DateTime
+  createAt       DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
