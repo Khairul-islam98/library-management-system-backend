@@ -18,7 +18,7 @@ CREATE TABLE "members" (
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
-    "memberShipDate" TIMESTAMP(3) NOT NULL,
+    "membershipDate" TIMESTAMP(3) NOT NULL,
     "createAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
