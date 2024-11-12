@@ -1,5 +1,7 @@
 import { Book } from "@prisma/client";
 import prisma from "../../utils/prisma";
+import AppError from "../../errors/AppError";
+import httpStatus from "http-status";
 
 const createBookIntoDB = async (payload: Book) => {
   const result = await prisma.book.create({
@@ -19,10 +21,21 @@ const getBookByIdFromDB = async (id: string) => {
       bookId: id,
     },
   });
+  if (!result) {
+    throw new AppError(httpStatus.NOT_FOUND, "Book not found");
+  }
   return result;
 };
 
 const updateBookById = async (id: string, payload: Partial<Book>) => {
+  const isExist = await prisma.book.findUnique({
+    where: {
+      bookId: id,
+    },
+  });
+  if (!isExist) {
+    throw new AppError(httpStatus.NOT_FOUND, "Book not found");
+  }
   const result = await prisma.book.update({
     where: {
       bookId: id,
@@ -33,6 +46,14 @@ const updateBookById = async (id: string, payload: Partial<Book>) => {
 };
 
 const deleteBookById = async (id: string) => {
+  const isExist = await prisma.book.findUnique({
+    where: {
+      bookId: id,
+    },
+  });
+  if (!isExist) {
+    throw new AppError(httpStatus.NOT_FOUND, "Book not found");
+  }
   const result = await prisma.book.delete({
     where: {
       bookId: id,

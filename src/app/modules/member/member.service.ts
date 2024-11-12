@@ -1,5 +1,7 @@
 import { Member } from "@prisma/client";
 import prisma from "../../utils/prisma";
+import AppError from "../../errors/AppError";
+import httpStatus from "http-status";
 
 const createMemberIntoDB = async (payload: Member) => {
   const result = await prisma.member.create({
@@ -19,9 +21,20 @@ const getMemberByIdFromDB = async (id: string) => {
       memberId: id,
     },
   });
+  if (!result) {
+    throw new AppError(httpStatus.NOT_FOUND, "Member not found");
+  }
   return result;
 };
 const updateMemberById = async (id: string, payload: Partial<Member>) => {
+  const isExist = await prisma.member.findUnique({
+    where: {
+      memberId: id,
+    },
+  });
+  if (!isExist) {
+    throw new AppError(httpStatus.NOT_FOUND, "Member not found");
+  }
   const result = await prisma.member.update({
     where: {
       memberId: id,
@@ -32,6 +45,14 @@ const updateMemberById = async (id: string, payload: Partial<Member>) => {
 };
 
 const deleteMemberById = async (id: string) => {
+  const isExist = await prisma.member.findUnique({
+    where: {
+      memberId: id,
+    },
+  });
+  if (!isExist) {
+    throw new AppError(httpStatus.NOT_FOUND, "Member not found");
+  }
   const result = await prisma.member.delete({
     where: {
       memberId: id,
