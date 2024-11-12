@@ -1,4 +1,4 @@
-[]: # Name: Library Management System
+ # **Library Management System**
 
 
 ## Live link: https://library-management-system-backend-murex.vercel.app
@@ -10,7 +10,7 @@ The Library Management System is a comprehensive backend solution designed to st
 ## Technology Stack & Packages
   - Node.js
   - Express.js
-  - Prisma
+  - Prisma ORM
   - PostgreSQL
   - Typescript
   - cors
