@@ -12,6 +12,18 @@ const createBorrow = catchAsync(async (req, res) => {
   });
 });
 
+const borrowOverDueList = catchAsync(async (req, res) => {
+  const result = await BorrowServices.borrowOverDueListIntoDB();
+  sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message:
+      result.length > 0 ? "Overdue borrow list fetched" : "No overdue books",
+    data: result || [],
+  });
+});
+
 export const BorrowControllers = {
   createBorrow,
+  borrowOverDueList,
 };
