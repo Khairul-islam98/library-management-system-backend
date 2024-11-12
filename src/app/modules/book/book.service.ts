@@ -1,7 +1,7 @@
+import { Book } from "@prisma/client";
 import prisma from "../../utils/prisma";
-import { IBook } from "./book.interface";
 
-const createBookIntoDB = async (payload: IBook) => {
+const createBookIntoDB = async (payload: Book) => {
   const result = await prisma.book.create({
     data: payload,
   });
@@ -22,7 +22,7 @@ const getBookByIdFromDB = async (id: string) => {
   return result;
 };
 
-const updateBookById = async (id: string, payload: Partial<IBook>) => {
+const updateBookById = async (id: string, payload: Partial<Book>) => {
   const result = await prisma.book.update({
     where: {
       bookId: id,
