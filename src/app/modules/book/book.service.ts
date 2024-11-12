@@ -22,8 +22,29 @@ const getBookByIdFromDB = async (id: string) => {
   return result;
 };
 
+const updateBookById = async (id: string, payload: Partial<IBook>) => {
+  const result = await prisma.book.update({
+    where: {
+      bookId: id,
+    },
+    data: payload,
+  });
+  return result;
+};
+
+const deleteBookById = async (id: string) => {
+  const result = await prisma.book.delete({
+    where: {
+      bookId: id,
+    },
+  });
+  return result;
+};
+
 export const BookServices = {
   createBookIntoDB,
   getBooksFromDB,
   getBookByIdFromDB,
+  updateBookById,
+  deleteBookById,
 };

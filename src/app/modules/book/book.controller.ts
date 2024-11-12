@@ -32,9 +32,32 @@ const getBookById = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const updateBook = catchAsync(async (req, res) => {
+  const result = await BookServices.updateBookById(
+    req.params.bookId as string,
+    req.body
+  );
+  sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: "Book updated successfully",
+    data: result,
+  });
+});
+
+const deleteBook = catchAsync(async (req, res) => {
+  const result = await BookServices.deleteBookById(req.params.bookId as string);
+  sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: "Book successfully deleted",
+  });
+});
 
 export const BookControllers = {
   createBook,
   getBooks,
   getBookById,
+  updateBook,
+  deleteBook,
 };
