@@ -3,7 +3,7 @@ import sendResponse from "../../utils/sendResponse";
 import { ReturnServices } from "./return.service";
 
 const returnBook = catchAsync(async (req, res) => {
-  console.log("Received borrowId:", req.params.borrowId);
+  console.log("Received borrowId:", req.body.borrowId);
   const result = await ReturnServices.returnBookIntoDB(
     req.body.borrowId as string
   );
